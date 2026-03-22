@@ -1,16 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Polidram | Usinagem CNC</title>
-
 <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400&display=swap" rel="stylesheet">
-
 <style>
-
+/* Seu CSS permanece o mesmo */
 body{
 margin:0;
 font-family:Arial, sans-serif;
@@ -42,6 +38,15 @@ font-size:72px;
 margin:0;
 }
 
+@media (max-width: 768px) {
+    .brand h1 {
+        font-size: 36px;
+    }
+    .brand img {
+        height: 50px;
+    }
+}
+
 nav{
 position:sticky;
 top:0;
@@ -56,6 +61,11 @@ color:#fff;
 margin:0 15px;
 text-decoration:none;
 font-weight:bold;
+transition:color 0.3s;
+}
+
+nav a:hover{
+color:#25D366;
 }
 
 section{
@@ -68,8 +78,6 @@ h2{
 text-align:center;
 margin-bottom:40px;
 }
-
-/* galeria peças */
 
 .grid{
 display:grid;
@@ -95,8 +103,6 @@ transition:0.3s;
 transform:scale(1.05);
 }
 
-/* lightbox */
-
 .lightbox{
 position:fixed;
 top:0;
@@ -115,15 +121,12 @@ max-width:90%;
 max-height:90%;
 }
 
-/* videos */
-
 .video-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
 gap:20px;
 }
 
-/* Shorts - formato vertical */
 .short{
 aspect-ratio:9/16;
 border-radius:10px;
@@ -174,8 +177,6 @@ height:100%;
 border:none;
 }
 
-/* contato */
-
 .contato{
 text-align:center;
 font-size:18px;
@@ -205,8 +206,6 @@ text-align:center;
 color:#777;
 }
 
-/* botão whatsapp */
-
 .whatsapp{
 position:fixed;
 right:20px;
@@ -226,7 +225,6 @@ z-index:100;
 transform:scale(1.05);
 }
 
-/* mensagem de erro do vídeo */
 .video-error{
 position:absolute;
 top:0;
@@ -243,144 +241,96 @@ text-align:center;
 padding:10px;
 box-sizing:border-box;
 }
-
 </style>
-
 </head>
-
-
 <body>
 
 <header>
-
 <div class="brand">
-
 <img src="img/pd_logo_hq.png" alt="Polidram Logo" onerror="this.style.display='none'">
-
 <h1>POLIDRAM</h1>
-
 </div>
-
 </header>
 
-
 <nav>
-
 <a href="#sobre">Sobre</a>
 <a href="#pecas">Peças</a>
 <a href="#videos">Vídeos</a>
 <a href="#contato">Contato</a>
-
 </nav>
 
-
 <section id="sobre">
-
 <h2>Sobre</h2>
-
 <p style="text-align:center;max-width:700px;margin:auto;">
 A Polidram é especializada em usinagem CNC e fabricação de peças técnicas para a indústria.
 Produzimos peças sob desenho, protótipos e pequenas séries com alta precisão e qualidade.
 </p>
-
 </section>
 
-
 <section id="pecas">
-
 <h2>Alguns Trabalhos</h2>
-
 <div class="grid">
-
 <div class="peca"><img src="img/peca1.jpg" alt="Peça 1" onerror="this.src='https://via.placeholder.com/300x400?text=Peça+1'"></div>
 <div class="peca"><img src="img/peca2.jpg" alt="Peça 2" onerror="this.src='https://via.placeholder.com/300x400?text=Peça+2'"></div>
 <div class="peca"><img src="img/peca3.jpg" alt="Peça 3" onerror="this.src='https://via.placeholder.com/300x400?text=Peça+3'"></div>
 <div class="peca"><img src="img/peca5.jpg" alt="Peça 5" onerror="this.src='https://via.placeholder.com/300x400?text=Peça+5'"></div>
-
 </div>
-
 </section>
 
-
 <section id="videos">
-
 <h2>Usinagem em Vídeo</h2>
-
 <div class="video-grid">
-
 <div class="short" data-id="NQT_dz2ehno" data-title="Vídeo 1">
 <img src="https://img.youtube.com/vi/NQT_dz2ehno/hqdefault.jpg" alt="Thumbnail vídeo 1">
 <div class="play-overlay"></div>
 </div>
-
 <div class="short" data-id="C-PUFSAsdDw" data-title="Vídeo 2">
 <img src="https://img.youtube.com/vi/C-PUFSAsdDw/hqdefault.jpg" alt="Thumbnail vídeo 2">
 <div class="play-overlay"></div>
 </div>
-
 <div class="short" data-id="8TahVKnwO_Y" data-title="Vídeo 3">
 <img src="https://img.youtube.com/vi/8TahVKnwO_Y/hqdefault.jpg" alt="Thumbnail vídeo 3">
 <div class="play-overlay"></div>
 </div>
-
 </div>
-
 <p style="text-align:center;margin-top:20px;font-size:14px;color:#888;">
 💡 Passe o mouse sobre os vídeos para assistir às prévias
 </p>
-
 </section>
 
-
 <section id="contato">
-
 <h2>Contato</h2>
-
 <div class="contato">
-
 <p>
 📱 WhatsApp / Telegram<br>
 <strong>+55 47 99904-3337</strong>
 </p>
-
 <p>
 ✉️ Email<br>
 <strong>contato@polidram.com.br</strong>
 </p>
-
 <div class="social">
-
 <a href="https://www.youtube.com/@polidram" target="_blank">▶ YouTube</a>
 <a href="https://www.instagram.com/polidram_cnc/" target="_blank">📷 Instagram</a>
 <a href="https://www.linkedin.com/company/polidram" target="_blank">🔗 LinkedIn</a>
-
 </div>
-
 </div>
-
 </section>
 
-
 <footer>
-
 Polidram © 2026
-
 </footer>
-
 
 <a class="whatsapp" href="https://wa.me/5547999043337" target="_blank">
 💬 WhatsApp
 </a>
 
-
 <div class="lightbox" id="lightbox">
 <img id="lightbox-img" alt="Imagem ampliada">
 </div>
 
-
 <script>
-
-/* ==================== LIGHTBOX IMAGENS ==================== */
+// Lightbox imagens
 const imagens = document.querySelectorAll(".peca img");
 const lightbox = document.getElementById("lightbox");
 const lightboxImg = document.getElementById("lightbox-img");
@@ -390,7 +340,6 @@ imagens.forEach(img => {
         e.stopPropagation();
         lightbox.style.display = "flex";
         lightboxImg.src = img.src;
-        lightboxImg.alt = img.alt || "Imagem ampliada";
     });
 });
 
@@ -398,36 +347,14 @@ lightbox.addEventListener("click", () => {
     lightbox.style.display = "none";
 });
 
-// Fechar lightbox com tecla ESC
 document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && lightbox.style.display === "flex") {
         lightbox.style.display = "none";
     }
 });
 
-/* ==================== VÍDEOS SHORTS (YouTube) ==================== */
-
-// Função para verificar se um vídeo pode ser incorporado
-function checkVideoEmbeddable(videoId, callback) {
-    // Usando a API oEmbed do YouTube para verificar disponibilidade
-    const oembedUrl = `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`;
-    
-    fetch(oembedUrl)
-        .then(response => {
-            if (response.ok) {
-                callback(true);
-            } else {
-                callback(false);
-            }
-        })
-        .catch(() => {
-            callback(false);
-        });
-}
-
-// Função para criar o iframe do YouTube
+// Vídeos
 function createYouTubeIframe(videoId, autoplay = true) {
-    // Parâmetros melhorados para evitar erros
     const params = new URLSearchParams({
         autoplay: autoplay ? '1' : '0',
         mute: '1',
@@ -450,68 +377,31 @@ function createYouTubeIframe(videoId, autoplay = true) {
     </iframe>`;
 }
 
-// Função para criar mensagem de erro
 function createErrorMessage(videoId) {
     return `
         <div class="video-error">
             <div>
                 ⚠️ Vídeo indisponível<br>
-                <small>Erro de incorporação</small><br>
-                <a href="https://www.youtube.com/watch?v=${videoId}" target="_blank" style="color:#25D366;">Abrir no YouTube →</a>
+                <small>Clique para abrir no YouTube</small>
             </div>
         </div>
     `;
 }
 
-// Configurar os shorts
 const shorts = document.querySelectorAll(".short");
-let activeVideoId = null;
-
-// Armazenar o estado original de cada short (thumbnail)
-shorts.forEach(short => {
-    const originalContent = short.innerHTML;
-    short.setAttribute('data-original', originalContent);
-});
 
 shorts.forEach(short => {
     const videoId = short.dataset.id;
     let isPlaying = false;
-    let embedCheckDone = false;
-    let isEmbeddable = true; // assume true inicialmente
     
-    // Verificar se o vídeo pode ser incorporado (opcional - pode ser removido se causar delay)
-    checkVideoEmbeddable(videoId, (embeddable) => {
-        embedCheckDone = true;
-        isEmbeddable = embeddable;
-        if (!embeddable) {
-            console.warn(`Vídeo ${videoId} não pode ser incorporado.`);
-        }
-    });
-    
-    // Evento de mouse enter
     short.addEventListener("mouseenter", () => {
-        // Se já tem um iframe ou está tocando, não recria
         if (short.querySelector('iframe') || isPlaying) return;
         
-        // Se a verificação já foi feita e o vídeo não é embeddable
-        if (embedCheckDone && !isEmbeddable) {
-            short.innerHTML = createErrorMessage(videoId);
-            short.style.cursor = 'pointer';
-            return;
-        }
-        
-        // Criar e inserir o iframe
         short.innerHTML = createYouTubeIframe(videoId, true);
         isPlaying = true;
         
-        // Adicionar evento para o iframe carregar
         const iframe = short.querySelector('iframe');
         if (iframe) {
-            iframe.addEventListener('load', () => {
-                console.log(`Vídeo ${videoId} carregado`);
-            });
-            
-            // Tratar erro de carregamento do iframe
             iframe.addEventListener('error', () => {
                 short.innerHTML = createErrorMessage(videoId);
                 isPlaying = false;
@@ -519,38 +409,25 @@ shorts.forEach(short => {
         }
     });
     
-    // Evento de mouse leave
     short.addEventListener("mouseleave", () => {
         if (!isPlaying) return;
         
-        // Restaurar a thumbnail
-        const thumbnailUrl = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
-        const title = short.dataset.title || 'Vídeo';
-        
         short.innerHTML = `
-            <img src="${thumbnailUrl}" alt="Thumbnail ${title}">
+            <img src="https://img.youtube.com/vi/${videoId}/hqdefault.jpg" alt="Thumbnail">
             <div class="play-overlay"></div>
         `;
-        
         isPlaying = false;
     });
     
-    // Clique para abrir no YouTube em nova aba (útil quando o vídeo não carrega)
     short.addEventListener("click", (e) => {
-        // Se clicou em um link dentro do erro, não faz nada
         if (e.target.tagName === 'A') return;
-        
-        // Se há um iframe e não está em erro, permitir interação normal
-        if (short.querySelector('iframe') && !short.querySelector('.video-error')) {
-            return;
+        if (!short.querySelector('iframe')) {
+            window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
         }
-        
-        // Caso contrário, abrir no YouTube
-        window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank');
     });
 });
 
-/* ==================== NAVEGAÇÃO SUAVE ==================== */
+// Navegação suave
 document.querySelectorAll('nav a').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         e.preventDefault();
@@ -558,26 +435,10 @@ document.querySelectorAll('nav a').forEach(anchor => {
         const targetElement = document.getElementById(targetId);
         
         if (targetElement) {
-            const offsetTop = targetElement.offsetTop - 60;
-            window.scrollTo({
-                top: offsetTop,
-                behavior: 'smooth'
-            });
+            targetElement.scrollIntoView({ behavior: 'smooth' });
         }
     });
 });
-
-/* ==================== PREVENIR ERROS DE CONSOLE ==================== */
-// Tratar erros de iframe silenciosamente
-window.addEventListener('error', function(e) {
-    if (e.message && e.message.includes('YouTube')) {
-        console.log('Erro de vídeo tratado silenciosamente');
-        e.preventDefault();
-        return false;
-    }
-}, true);
-
 </script>
-
 </body>
 </html>
