@@ -1,0 +1,1481 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<link rel="icon" href="img/icons/favicon.png" type="image/png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Polidram | Usinagem CNC</title>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+/* ==================== RESET E ESTILOS GERAIS ==================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#222222;
+    color:#eaeaea;
+    overflow-x: hidden;
+}
+
+header{
+    background:#111111;
+    padding:20px 20px;
+    display:flex;
+    justify-content:center;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.brand img{
+    height: 80px;
+    padding:0px 10px;
+}
+
+.brand h1{
+    font-family:'Fira Mono', monospace;
+    font-size:80px;
+    margin:0;
+}
+
+@media (max-width: 768px) {
+    .brand h1 {
+        font-size: 36px;
+    }
+    .brand img {
+        height: 50px;
+    }
+}
+
+nav{
+    position:sticky;
+    top:0;
+    background:#0170c9;
+    padding: 5px 20px;
+    text-align:center;
+    z-index:100;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+nav a{
+    color:#fff;
+    text-decoration:none;
+    font-weight:bold;
+    font-size: 13px;
+    transition: all 0.3s;
+    background: rgba(255,255,255,0.1);
+    padding: 6px 16px;
+    border-radius: 20px;
+    display: inline-block;
+    min-width: 70px;
+    text-align: center;
+    letter-spacing: 0.5px;
+}
+
+nav a:hover{
+    background: #ffffff;
+    color: #0170c9;
+    transform: translateY(-1px);
+}
+
+section{
+    max-width:1100px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+/* ==================== GALERIA SHOWROOM (SCROLL HORIZONTAL) ==================== */
+.showroom-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    cursor: grab;
+    user-select: none;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    padding: 20px 0;
+}
+
+.showroom-container:active {
+    cursor: grabbing;
+}
+
+.showroom-track {
+    display: flex;
+    gap: 20px;
+    padding: 0 20px;
+    width: max-content;
+}
+
+.showroom-item {
+    flex-shrink: 0;
+    width: 280px;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #1a1a1a;
+    position: relative;
+}
+
+.showroom-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.showroom-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+    pointer-events: none;
+}
+
+.showroom-item:hover img {
+    transform: scale(1.05);
+}
+
+/* Botão de expandir */
+.expand-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    background: rgba(0,0,0,0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.2s;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+}
+
+.expand-btn:hover {
+    transform: scale(1.1);
+    background: rgba(0,0,0,0.9);
+}
+
+.expand-btn img {
+    width: 18px;
+    height: 18px;
+    pointer-events: none;
+    filter: brightness(0) invert(1);
+}
+
+.showroom-item:hover .expand-btn {
+    opacity: 1;
+}
+
+/* ==================== VÍDEOS COM SCROLL HORIZONTAL ==================== */
+.videos-container {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    cursor: grab;
+    user-select: none;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+    padding: 20px 0;
+}
+
+.videos-container:active {
+    cursor: grabbing;
+}
+
+.videos-track {
+    display: flex;
+    gap: 20px;
+    padding: 0 20px;
+    width: max-content;
+}
+
+.video-item {
+    flex-shrink: 0;
+    width: 280px;
+    aspect-ratio: 9/16;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #000;
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.video-item:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+/* Thumbnail do vídeo */
+.video-thumb {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+    pointer-events: none;
+}
+
+.video-item:hover .video-thumb {
+    transform: scale(1.05);
+}
+
+/* Botão de play centralizado */
+.video-play-btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 56px;
+    height: 56px;
+    background: rgba(0,0,0,0.7);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.2s;
+    z-index: 10;
+    backdrop-filter: blur(4px);
+    pointer-events: auto;
+}
+
+.video-play-btn:hover {
+    transform: translate(-50%, -50%) scale(1.1);
+    background: rgba(0,0,0,0.9);
+}
+
+.video-play-btn img {
+    width: 28px;
+    height: 28px;
+    pointer-events: none;
+    filter: brightness(0) invert(1);
+    margin-left: 3px;
+}
+
+.video-item:hover .video-play-btn {
+    opacity: 1;
+}
+
+/* Estado quando o vídeo está tocando */
+.video-item.playing iframe {
+    display: block;
+}
+
+.video-item.playing .video-thumb,
+.video-item.playing .video-play-btn {
+    display: none;
+}
+
+.video-item iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+}
+
+.video-error {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff6b6b;
+    font-size: 12px;
+    text-align: center;
+    padding: 10px;
+    box-sizing: border-box;
+    z-index: 5;
+}
+
+.scroll-indicator {
+    text-align: center;
+    margin-top: 5px;
+    font-size: 14px;
+    color: #888;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.scroll-indicator span {
+    font-size: 20px;
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+}
+
+.loading-message {
+    text-align: center;
+    padding: 60px;
+    color: #888;
+    font-size: 18px;
+}
+
+.loading-message::after {
+    content: "...";
+    animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+    0%, 20% { content: "."; }
+    40% { content: ".."; }
+    60%, 100% { content: "..."; }
+}
+
+.empty-message {
+    text-align: center;
+    padding: 60px;
+    color: #ff6b6b;
+    font-size: 18px;
+}
+
+.empty-message small {
+    font-size: 12px;
+    color: #888;
+}
+
+.last-update {
+    text-align: center;
+    font-size: 12px;
+    color: #131313;
+    margin-top: 10px;
+}
+
+/* ==================== LIGHTBOX ==================== */
+.lightbox{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.95);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:999;
+    cursor: pointer;
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    font-size: 40px;
+    color: white;
+    cursor: pointer;
+    z-index: 1000;
+    font-weight: bold;
+    transition: transform 0.3s;
+}
+
+.lightbox-close:hover {
+    transform: scale(1.1);
+    color: #0170c9;
+}
+
+.lightbox-img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.lightbox-img-wrapper {
+    position: relative;
+    background: #0a0a0a;
+    border-radius: 8px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.lightbox-img-wrapper img {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* ==================== CONTATO COM ÍCONES ==================== */
+.contato {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contato-links {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.contato-item {
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.contato-item:hover {
+    transform: translateY(-5px);
+}
+
+.contato-item a {
+    display: block;
+    text-decoration: none;
+}
+
+.contato-item img {
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s;
+    filter: brightness(0.9);
+}
+
+.contato-item:hover img {
+    filter: brightness(1.1);
+    transform: scale(1.05);
+}
+
+.contato-item span {
+    display: block;
+    margin-top: 8px;
+    color: #eaeaea;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.email-container {
+    margin: 40px 0;
+}
+
+.email-container a {
+    display: inline-block;
+    text-decoration: none;
+    transition: transform 0.3s;
+}
+
+.email-container a:hover {
+    transform: translateY(-5px);
+}
+
+.email-container img {
+    width: 40px;
+    height: 40px;
+    transition: all 0.3s;
+    filter: brightness(0.9);
+}
+
+.email-container:hover img {
+    filter: brightness(1.1);
+    transform: scale(1.05);
+}
+
+.email-container span {
+    display: block;
+    margin-top: 8px;
+    color: #eaeaea;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.social {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 1px solid #333;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+}
+
+.social-links a {
+    display: inline-block;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.social-links a:hover {
+    transform: translateY(-5px);
+}
+
+.social-links img {
+    width: 30px;
+    height: 30px;
+    transition: all 0.3s;
+    filter: brightness(0.9);
+}
+
+.social-links a:hover img {
+    filter: brightness(1.1);
+    transform: scale(1.05);
+}
+
+/* ==================== RODAPÉ ==================== */
+footer{
+    background:#000;
+    padding:30px;
+    text-align:center;
+    color:#777;
+}
+
+/* ==================== BOTÃO WHATSAPP FLUTUANTE ==================== */
+.whatsapp{
+    position:fixed;
+    right:20px;
+    bottom:20px;
+    background:#222222;
+    padding:0px;
+    border-radius:50%;
+    text-decoration:none;
+    box-shadow:0 0 10px rgba(0,0,0,0.4);
+    transition:all 0.3s;
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.whatsapp:hover{
+    transform:scale(1.1);
+    box-shadow:0 0 15px rgba(37,211,102,0.5);
+}
+
+.whatsapp img {
+    width: 64px;
+    height: 64px;
+    display: block;
+}
+
+/* ==================== RESPONSIVIDADE ==================== */
+@media (max-width: 768px) {
+    .showroom-item,
+    .video-item {
+        width: 220px;
+    }
+    
+    .video-play-btn {
+        width: 48px;
+        height: 48px;
+    }
+    
+    .video-play-btn img {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .contato-links {
+        gap: 30px;
+    }
+    
+    .contato-item img,
+    .email-container img {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .social-links {
+        gap: 25px;
+    }
+    
+    .social-links img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .expand-btn {
+        width: 28px;
+        height: 28px;
+    }
+    
+    .expand-btn img {
+        width: 16px;
+        height: 16px;
+    }
+    nav {
+        padding: 4px 15px;
+        gap: 5px;
+    }
+    
+    nav a {
+        padding: 4px 10px;
+        font-size: 11px;
+        min-width: 55px;
+    }
+}
+
+
+
+@media (max-width: 480px) {
+    .showroom-item,
+    .video-item {
+        width: 180px;
+    }
+    
+    .video-play-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .video-play-btn img {
+        width: 20px;
+        height: 20px;
+    }
+    
+    .contato-links {
+        gap: 20px;
+    }
+    
+    .contato-item img,
+    .email-container img {
+        width: 45px;
+        height: 45px;
+    }
+    
+    .social-links {
+        gap: 20px;
+    }
+    
+    .social-links img {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .expand-btn {
+        width: 24px;
+        height: 24px;
+    }
+    
+    .expand-btn img {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+/* Para Chromium (Chrome, Edge, Brave) */
+.showroom-container::-webkit-scrollbar,
+.videos-container::-webkit-scrollbar {
+    height: 10px;
+}
+
+.showroom-container::-webkit-scrollbar-track,
+.videos-container::-webkit-scrollbar-track {
+    background: #1a1a1a;
+    border-radius: 10px;
+}
+
+.showroom-container::-webkit-scrollbar-thumb,
+.videos-container::-webkit-scrollbar-thumb {
+    background: #7d7d7d;
+    border-radius: 10px;
+}
+
+.showroom-container::-webkit-scrollbar-thumb:hover,
+.videos-container::-webkit-scrollbar-thumb:hover {
+    background: #0170c9;
+}
+
+/* Para Firefox */
+.showroom-container,
+.videos-container {
+    scrollbar-width: thin;
+    scrollbar-color: #7d7d7d #1a1a1a;
+}
+
+.showroom-container:hover,
+.videos-container:hover {
+    scrollbar-color: #0170c9 #1a1a1a;
+}
+
+#redes-sociais {
+    padding-top: 0;
+}
+
+#redes-sociais .social {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+}
+
+
+/* ==================== SERVIÇOS ==================== */
+.services {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 20px;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.service-card {
+    background: #1a1a1a;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #333;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.service-card video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.1;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.service-card:hover video {
+    opacity: 0.9;
+}
+
+.service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    border-color: #0170c9;
+}
+
+.service-card h3 {
+    color: #0170c9;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 20px;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease, background 0.3s ease, padding 0.3s ease;
+    display: inline-block;
+    align-self: flex-start;
+}
+
+.service-card:hover h3 {
+    transform: translateY(-25px);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0px 5px;
+    border-radius: 5px;
+    backdrop-filter: blur(4px);
+}
+
+.service-card p {
+    color: #eaeaea;
+    line-height: 1.5;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    opacity: 1;
+    visibility: visible;
+}
+
+.service-card:hover p {
+    opacity: 0;
+    visibility: hidden;
+}
+
+@media (max-width: 600px) {
+    .services {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+/* ==================== SOBRE - CARD DESTAQUE ==================== */
+#sobre {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.sobre-card {
+    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    border-radius: 20px;
+    padding: 50px 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    border: 1px solid rgba(1, 112, 201, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.sobre-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    border-color: #0170c9;
+}
+
+.sobre-card h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.sobre-card h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: #0170c9;
+    border-radius: 2px;
+}
+
+.sobre-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.sobre-content p {
+    text-align: center;
+    line-height: 1.8;
+    font-size: 16px;
+    color: #eaeaea;
+    margin-bottom: 20px;
+}
+
+.sobre-content p:last-child {
+    margin-bottom: 0;
+}
+
+.sobre-content strong {
+    color: #0170c9;
+}
+
+@media (max-width: 768px) {
+    .sobre-card {
+        padding: 30px 20px;
+    }
+    
+    .sobre-card h2 {
+        font-size: 28px;
+    }
+    
+    .sobre-content p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
+}
+
+
+/* ==================== FIM STYLE ==================== */
+</style>
+</head>
+<body>
+
+<header>
+<div class="brand">
+<img src="img/pd_logo_hq.png" alt="Polidram Logo" onerror="this.style.display='none'">
+<h1>POLIDRAM</h1>
+</div>
+</header>
+
+<nav>
+<a href="#servicos">Serviços</a>
+<a href="#showroom">Showroom</a>
+<a href="#videos">Vídeos</a>
+<a href="#contato">Contato</a>
+<a href="#redes-sociais">Redes</a>
+</nav>
+
+<!-- ==================== SEÇÃO SOBRE ==================== -->
+<section id="sobre">
+<div class="sobre-card">
+    <h2>Sobre a Polidram</h2>
+    <div class="sobre-content">
+        <p>
+            A <strong>Polidram</strong> é especializada em <strong>usinagem CNC de precisão</strong>, oferecendo soluções para peças técnicas, protótipos e pequenas séries. Nosso trabalho combina experiência prática com o uso de <strong>máquinas CNC de fabricação própria</strong>, permitindo maior controle do processo e alta qualidade nos resultados.
+        </p>
+        <p>
+            Desenvolvemos soluções sob medida para cada cliente, priorizando <strong>precisão dimensional</strong>, <strong>confiabilidade</strong> e <strong>eficiência na produção</strong>.
+        </p>
+    </div>
+</div>
+</section>
+
+<!-- ==================== SEÇÃO SERVIÇOS ==================== -->
+<section id="servicos">
+<h2>Nossos Serviços</h2>
+<div class="services">
+    <div class="service-card">
+        <video autoplay muted loop playsinline>
+            <source src="img/servicos/usinagem_site.mp4" type="video/mp4">
+        </video>
+        <h3>Usinagem de Precisão</h3>
+        <p>Usinagem CNC de alta precisão com tolerâncias rigorosas, acabamento superior e máxima qualidade dimensional.</p>
+    </div>
+    <div class="service-card">
+        <video autoplay muted loop playsinline>
+            <source src="img/servicos/pecas_16x9.mp4" type="video/mp4">
+        </video>
+        <h3>Peças para Máquinas</h3>
+        <p>Fabricação de componentes industriais sob medida para fabricantes de equipamentos e manutenção especializada.</p>
+    </div>
+    <div class="service-card">
+        <video autoplay muted loop playsinline>
+            <source src="img/servicos/retrofit_site.mp4" type="video/mp4">
+        </video>
+        <h3>Retrofit CNC</h3>
+        <p>Modernização e revitalização completa de máquinas CNC, aumentando eficiência, precisão e vida útil dos equipamentos.</p>
+    </div>
+    <div class="service-card">
+        <video autoplay muted loop playsinline>
+            <source src="img/servicos/cadcam_site.mp4" type="video/mp4">
+        </video>
+        <h3>CAD e CAM</h3>
+        <p>Modelagem 3D, desenvolvimento de projetos e programação de trajetórias de usinagem para máxima eficiência e qualidade na fabricação de peças.</p>
+    </div>
+</div>
+</section>
+
+<!-- ==================== SEÇÃO SHOWROOM ==================== -->
+<section id="showroom">
+<h2>Showroom</h2>
+<div class="showroom-container" id="showroomContainer">
+    <div class="showroom-track" id="showroomTrack">
+        <div class="loading-message">Carregando imagens</div>
+    </div>
+</div>
+<div class="scroll-indicator">
+    <span>←</span> Arraste para o lado <span>→</span>
+</div>
+<div class="last-update" id="lastUpdate"></div>
+</section>
+
+<!-- ==================== SEÇÃO VÍDEOS COM SCROLL HORIZONTAL ==================== -->
+<section id="videos">
+<h2>Vídeos</h2>
+<div class="videos-container" id="videosContainer">
+    <div class="videos-track" id="videosTrack">
+        <div class="loading-message">Carregando vídeos</div>
+    </div>
+</div>
+<div class="scroll-indicator">
+    <span>←</span> Arraste para o lado <span>→</span>
+</div>
+<p style="text-align:center;margin-top:10px;font-size:14px;color:#888;">
+    Passe o mouse sobre os vídeos e clique no play para assistir
+</p>
+</section>
+
+<!-- ==================== SEÇÃO CONTATO ==================== -->
+<section id="contato">
+<h2>Contatos para Orçamentos</h2>
+<div class="contato">
+    <div class="contato-links">
+        <div class="contato-item">
+            <a href="https://api.whatsapp.com/send?1=pt_BR&phone=5547999043337&text=Ol%C3%A1.%20Peguei%20seu%20contato%20no%20site." target="_blank" title="WhatsApp">
+                <img src="img/icons/wp.png" alt="WhatsApp">
+                <span>WhatsApp</span>
+            </a>
+        </div>
+        <div class="contato-item">
+            <a href="https://t.me/arthurcancissu?text=Olá.%20Peguei%20seu%20contato%20no%20site." target="_blank" title="Telegram">
+                <img src="img/icons/tg.png" alt="Telegram">
+                <span>Telegram</span>
+            </a>
+        </div>
+    </div>
+    
+    <div class="email-container">
+        <a href="mailto:orcamentos@polidram.com.br" title="Enviar email">
+            <img src="img/icons/email.png" alt="Email">
+            <span>orcamentos@polidram.com.br</span>
+        </a>
+    </div>
+</div>
+</section>
+
+<section id="redes-sociais">
+<h2>Redes Sociais</h2>
+<div class="social">
+    <div class="social-links">
+        <a href="https://www.youtube.com/@polidram" target="_blank" title="YouTube">
+            <img src="img/icons/yt.png" alt="YouTube">
+        </a>
+        <a href="https://www.instagram.com/polidram_cnc/" target="_blank" title="Instagram">
+            <img src="img/icons/ig.png" alt="Instagram">
+        </a>
+        <a href="https://www.linkedin.com/company/polidram" target="_blank" title="LinkedIn">
+            <img src="img/icons/li.png" alt="LinkedIn">
+        </a>
+    </div>
+</div>
+</section>
+<footer>
+Polidram © 2026
+</footer>
+
+<a class="whatsapp" href="https://api.whatsapp.com/send?1=pt_BR&phone=5547999043337&text=Ol%C3%A1.%20Peguei%20seu%20contato%20no%20site." target="_blank" title="WhatsApp">
+    <img src="img/icons/wa_flutuante.png" alt="WhatsApp">
+</a>
+
+<div class="lightbox" id="lightbox">
+    <span class="lightbox-close">&times;</span>
+    <div class="lightbox-img-container">
+        <div class="lightbox-img-wrapper">
+            <img id="lightbox-img" alt="Imagem ampliada">
+        </div>
+    </div>
+</div>
+
+<script>
+// ==================== SHOWROOM - CARREGAR DO JSON ====================
+
+// Função para embaralhar array (Fisher-Yates)
+function shuffleArray(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
+
+// Função para carregar imagens do arquivo JSON
+async function loadShowroomImages() {
+    const track = document.getElementById('showroomTrack');
+    const lastUpdateSpan = document.getElementById('lastUpdate');
+    
+    // Tentar diferentes caminhos para o JSON
+    const jsonPaths = [
+        'img/images_list.json',
+        './img/images_list.json',
+        '../img/images_list.json',
+        'images_list.json'
+    ];
+    
+    let data = null;
+    let error = null;
+    
+    for (const path of jsonPaths) {
+        try {
+            console.log(`Tentando carregar: ${path}`);
+            const response = await fetch(path + '?t=' + Date.now());
+            
+            if (response.ok) {
+                data = await response.json();
+                console.log(`✅ JSON carregado com sucesso de: ${path}`);
+                break;
+            } else {
+                console.log(`❌ Falha ao carregar ${path}: ${response.status}`);
+            }
+        } catch (e) {
+            console.log(`❌ Erro ao carregar ${path}: ${e.message}`);
+            error = e;
+        }
+    }
+    
+    if (!data) {
+        console.error('Erro final:', error);
+        track.innerHTML = `
+            <div class="empty-message">
+                ⚠️ Erro ao carregar lista de imagens<br><br>
+                <small>Arquivo JSON não encontrado em nenhum dos caminhos testados.</small><br>
+                <small>Verifique se o arquivo img/images_list.json existe.</small><br><br>
+                <small>💡 Dica: Execute o comando: ./generate_images_list.sh</small>
+            </div>
+        `;
+        lastUpdateSpan.textContent = '';
+        return;
+    }
+    
+    if (!data.images || data.images.length === 0) {
+        track.innerHTML = '<div class="empty-message">📷 Nenhuma imagem encontrada<br><br>Adicione imagens à pasta img/showroom/ e execute o script generate_images_list.sh</div>';
+        lastUpdateSpan.textContent = '';
+        return;
+    }
+    
+    const shuffledImages = shuffleArray([...data.images]);
+    
+    track.innerHTML = '';
+    let loadedCount = 0;
+    let errorCount = 0;
+    
+    shuffledImages.forEach(imageName => {
+        const itemDiv = document.createElement('div');
+        itemDiv.className = 'showroom-item';
+        
+        const img = document.createElement('img');
+        const imagePath = `img/showroom/${encodeURIComponent(imageName)}`;
+        img.src = imagePath;
+        img.alt = 'Peça usinada';
+        img.loading = 'lazy';
+        
+        // Criar botão de expandir
+        const expandBtn = document.createElement('div');
+        expandBtn.className = 'expand-btn';
+        const expandIcon = document.createElement('img');
+        expandIcon.src = 'img/icons/expand.png';
+        expandIcon.alt = 'Expandir';
+        expandIcon.onerror = function() {
+            // Fallback se a imagem não existir: usar texto
+            expandIcon.style.display = 'none';
+            expandBtn.textContent = '⤢';
+            expandBtn.style.color = 'white';
+            expandBtn.style.fontSize = '20px';
+            expandBtn.style.fontWeight = 'bold';
+        };
+        expandBtn.appendChild(expandIcon);
+        
+        img.onerror = function() {
+            console.warn(`Imagem não encontrada: ${imageName}`);
+            errorCount++;
+            if (errorCount > 5 && loadedCount === 0) {
+                const warningDiv = document.createElement('div');
+                warningDiv.className = 'empty-message';
+                warningDiv.innerHTML = '⚠️ Nenhuma imagem pôde ser carregada.<br><small>Verifique se as imagens estão na pasta img/showroom/</small>';
+                track.innerHTML = '';
+                track.appendChild(warningDiv);
+            }
+        };
+        
+        img.onload = function() {
+            loadedCount++;
+        };
+        
+        // Evento de clique no botão de expandir
+        expandBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openLightbox(imagePath);
+        });
+        
+        itemDiv.appendChild(img);
+        itemDiv.appendChild(expandBtn);
+        track.appendChild(itemDiv);
+    });
+    
+    setTimeout(() => {
+        if (loadedCount === 0 && errorCount > 0) {
+            track.innerHTML = `
+                <div class="empty-message">
+                    ⚠️ Nenhuma imagem pôde ser carregada<br><br>
+                    <small>Verifique se as imagens estão na pasta: img/showroom/</small><br>
+                    <small>Imagens esperadas: ${data.images.length} arquivo(s)</small>
+                </div>
+            `;
+        }
+    }, 2000);
+}
+
+// Função para abrir lightbox
+function openLightbox(imageSrc) {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    lightboxImg.src = imageSrc;
+    lightbox.style.display = 'flex';
+}
+
+// ==================== VÍDEOS - ARRAY SIMPLES DE IDs ====================
+const videosData = [
+    "NQT_dz2ehno",
+    "SVqN2WIr2nY",
+    "8TahVKnwO_Y",
+    "sqGQX5_aPvY",
+    "C-PUFSAsdDw",
+    "3gwv9EooIhM",
+    "L7xI4Iuxof4",
+];
+
+// ==================== FUNÇÕES AUXILIARES PARA VÍDEOS ====================
+function createYouTubeIframe(videoId, autoplay = true) {
+    const params = new URLSearchParams({
+        autoplay: autoplay ? '1' : '0',
+        mute: '0',
+        loop: '0',
+        playsinline: '1',
+        controls: '1',
+        modestbranding: '1',
+        rel: '0',
+        showinfo: '0',
+        origin: window.location.origin
+    });
+    
+    return `<iframe 
+        src="https://www.youtube.com/embed/${videoId}?${params.toString()}"
+        frameborder="0"
+        allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+        allowfullscreen
+        style="width:100%;height:100%;">
+    </iframe>`;
+}
+
+function createErrorMessage(videoId) {
+    return `
+        <div class="video-error">
+            <div>
+                ⚠️ Vídeo indisponível<br>
+                <small>Clique para abrir no YouTube</small>
+            </div>
+        </div>
+    `;
+}
+
+function loadVideos() {
+    const track = document.getElementById('videosTrack');
+    if (!track) return;
+    
+    track.innerHTML = '';
+    
+    videosData.forEach((videoId, index) => {
+        const videoDiv = document.createElement('div');
+        videoDiv.className = 'video-item';
+        videoDiv.dataset.id = videoId;
+        videoDiv.dataset.playing = 'false';
+        
+        // Criar thumbnail
+        const thumb = document.createElement('img');
+        thumb.className = 'video-thumb';
+        thumb.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+        thumb.alt = `Vídeo ${index + 1}`;
+        
+        // Criar botão de play
+        const playBtn = document.createElement('div');
+        playBtn.className = 'video-play-btn';
+        const playIcon = document.createElement('img');
+        playIcon.src = 'img/icons/play.png';
+        playIcon.alt = 'Play';
+        // Fallback se a imagem não existir
+        playIcon.onerror = function() {
+            playIcon.style.display = 'none';
+            playBtn.textContent = '▶';
+            playBtn.style.color = 'white';
+            playBtn.style.fontSize = '32px';
+            playBtn.style.fontWeight = 'bold';
+            playBtn.style.marginLeft = '4px';
+            playBtn.style.backgroundColor = '#0170c9';
+            playBtn.style.width = '56px';
+            playBtn.style.height = '56px';
+            playBtn.style.borderRadius = '50%';
+            playBtn.style.display = 'flex';
+            playBtn.style.alignItems = 'center';
+            playBtn.style.justifyContent = 'center';
+        };
+        playBtn.appendChild(playIcon);
+        
+        videoDiv.appendChild(thumb);
+        videoDiv.appendChild(playBtn);
+        
+        // Função para iniciar reprodução
+        function startPlayback() {
+            if (videoDiv.dataset.playing === 'true') return;
+            
+            // Adicionar iframe
+            videoDiv.innerHTML = createYouTubeIframe(videoId, true);
+            videoDiv.classList.add('playing');
+            videoDiv.dataset.playing = 'true';
+            
+            // Se o iframe falhar, mostrar erro
+            const iframe = videoDiv.querySelector('iframe');
+            if (iframe) {
+                iframe.addEventListener('error', () => {
+                    videoDiv.innerHTML = createErrorMessage(videoId);
+                    videoDiv.classList.remove('playing');
+                    videoDiv.dataset.playing = 'false';
+                });
+            }
+        }
+        
+        // Clique no botão de play inicia o vídeo
+        playBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            startPlayback();
+        });
+        
+        track.appendChild(videoDiv);
+    });
+}
+// ==================== SCROLL HORIZONTAL COM TOQUE/MOUSE ====================
+function initHorizontalScroll() {
+    // Para imagens
+    const containerImages = document.getElementById('showroomContainer');
+    if (containerImages) {
+        setupHorizontalScroll(containerImages);
+    }
+    
+    // Para vídeos
+    const containerVideos = document.getElementById('videosContainer');
+    if (containerVideos) {
+        setupHorizontalScroll(containerVideos);
+    }
+}
+
+function setupHorizontalScroll(container) {
+    let isDown = false;
+    let startX;
+    let scrollLeft;
+    
+    container.addEventListener('mousedown', (e) => {
+        // Não iniciar arrasto se clicou em botão de play ou expandir
+        const target = e.target;
+        if (target.closest('.video-play-btn') || target.closest('.expand-btn')) {
+            return;
+        }
+        isDown = true;
+        container.style.cursor = 'grabbing';
+        startX = e.pageX - container.offsetLeft;
+        scrollLeft = container.scrollLeft;
+        e.preventDefault();
+    });
+    
+    container.addEventListener('mouseleave', () => {
+        isDown = false;
+        container.style.cursor = 'grab';
+    });
+    
+    container.addEventListener('mouseup', () => {
+        isDown = false;
+        container.style.cursor = 'grab';
+    });
+    
+    container.addEventListener('mousemove', (e) => {
+        if (!isDown) return;
+        e.preventDefault();
+        const x = e.pageX - container.offsetLeft;
+        const walk = (x - startX);
+        container.scrollLeft = scrollLeft - walk;
+    });
+    
+    // Suporte para toque (mobile)
+    let touchStartX = 0;
+    let touchScrollLeft = 0;
+    let touchStartTime = 0;
+    
+    container.addEventListener('touchstart', (e) => {
+        // Verificar se o toque foi em um botão de play
+        const target = e.target;
+        if (target.closest('.video-play-btn') || target.closest('.expand-btn')) {
+            return;
+        }
+        touchStartX = e.touches[0].pageX - container.offsetLeft;
+        touchScrollLeft = container.scrollLeft;
+        touchStartTime = Date.now();
+    }, { passive: true });
+    
+    container.addEventListener('touchmove', (e) => {
+        const target = e.target;
+        if (target.closest('.video-play-btn') || target.closest('.expand-btn')) {
+            return;
+        }
+        const x = e.touches[0].pageX - container.offsetLeft;
+        const walk = (x - touchStartX);
+        container.scrollLeft = touchScrollLeft - walk;
+    }, { passive: false });
+}
+
+// ==================== LIGHTBOX CONTROLES ====================
+function initLightbox() {
+    const lightbox = document.getElementById('lightbox');
+    const closeBtn = document.querySelector('.lightbox-close');
+    
+    // Fechar ao clicar no botão X
+    if (closeBtn) {
+        closeBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            lightbox.style.display = 'none';
+        });
+    }
+    
+    // Fechar ao clicar no fundo (fora da imagem)
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target.classList.contains('lightbox-img-container')) {
+            lightbox.style.display = 'none';
+        }
+    });
+    
+    // Fechar com tecla ESC
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+            lightbox.style.display = 'none';
+        }
+    });
+}
+
+// ==================== NAVEGAÇÃO SUAVE ====================
+function initSmoothScroll() {
+    document.querySelectorAll('nav a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetElement = document.getElementById(targetId);
+            
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+}
+
+// ==================== INICIALIZAÇÃO ====================
+document.addEventListener('DOMContentLoaded', () => {
+    loadShowroomImages();
+    loadVideos();
+    initLightbox();
+    initSmoothScroll();
+    initHorizontalScroll();
+});
+
+console.log('Site Polidram carregado!');
+console.log('✅ Scroll horizontal corrigido e funcionando');
+console.log('✅ Vídeos agora reproduzem apenas ao clicar no botão play');
+console.log('✅ Expansão de imagens via botão de expandir');
+</script>
+</body>
+</html>
