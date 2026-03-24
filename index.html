@@ -7,73 +7,72 @@
 <title>Polidram | Usinagem CNC</title>
 <link href="https://fonts.googleapis.com/css2?family=Fira+Mono:wght@400&display=swap" rel="stylesheet">
 <style>
-/* ==================== RESET E ESTILOS GERAIS ==================== */
+/* ============================================ */
+/* 1. RESET E ESTILOS GERAIS
+/* ============================================ */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body{
-    font-family:Arial, sans-serif;
-    background:#222222;
-    color:#eaeaea;
+body {
+    font-family: Arial, sans-serif;
+    background: #222222;
+    color: #eaeaea;
     overflow-x: hidden;
 }
 
-header{
-    background:#111111;
-    padding:20px 20px;
-    display:flex;
-    justify-content:center;
+/* ============================================ */
+/* 2. HEADER E BRAND
+/* ============================================ */
+header {
+    background: #111111;
+    padding: 20px 20px;
+    display: flex;
+    justify-content: center;
 }
 
-.brand{
-    display:flex;
-    align-items:center;
-    gap:20px;
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 20px;
 }
 
-.brand img{
+.brand img {
     height: 80px;
-    padding:0px 10px;
+    padding: 0px 10px;
 }
 
-.brand h1{
-    font-family:'Fira Mono', monospace;
-    font-size:80px;
-    margin:0;
+.brand h1 {
+    font-family: 'Fira Mono', monospace;
+    font-size: 80px;
+    margin: 0;
 }
 
-@media (max-width: 768px) {
-    .brand h1 {
-        font-size: 36px;
-    }
-    .brand img {
-        height: 50px;
-    }
-}
-
-nav{
-    position:sticky;
-    top:0;
-    background:#0170c9;
+/* ============================================ */
+/* 3. NAVEGAÇÃO
+/* ============================================ */
+nav {
+    position: sticky;
+    top: 0;
+    background: #0170c9;
     padding: 5px 20px;
-    text-align:center;
-    z-index:100;
+    text-align: center;
+    z-index: 100;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 8px;
 }
 
-nav a{
-    color:#fff;
-    text-decoration:none;
-    font-weight:bold;
+nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
     font-size: 13px;
     transition: all 0.3s;
-    background: rgba(255,255,255,0.1);
+    background: rgba(255, 255, 255, 0.1);
     padding: 6px 16px;
     border-radius: 20px;
     display: inline-block;
@@ -82,24 +81,183 @@ nav a{
     letter-spacing: 0.5px;
 }
 
-nav a:hover{
+nav a:hover {
     background: #ffffff;
     color: #0170c9;
     transform: translateY(-1px);
 }
 
-section{
-    max-width:1100px;
-    margin:auto;
-    padding:40px 20px;
+/* ============================================ */
+/* 4. SEÇÕES GERAIS
+/* ============================================ */
+section {
+    max-width: 1100px;
+    margin: auto;
+    padding: 40px 20px;
 }
 
-h2{
-    text-align:center;
-    margin-bottom:20px;
+h2 {
+    text-align: center;
+    margin-bottom: 25px;
 }
 
-/* ==================== GALERIA SHOWROOM (SCROLL HORIZONTAL) ==================== */
+/* ============================================ */
+/* 5. SOBRE - CARD DESTAQUE
+/* ============================================ */
+#sobre {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.sobre-card {
+    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    border-radius: 20px;
+    padding: 50px 40px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(1, 112, 201, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.sobre-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-color: #0170c9;
+}
+
+.sobre-card h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 32px;
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.sobre-card h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: #0170c9;
+    border-radius: 2px;
+}
+
+.sobre-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.sobre-content p {
+    text-align: center;
+    line-height: 1.8;
+    font-size: 16px;
+    color: #eaeaea;
+    margin-bottom: 20px;
+}
+
+.sobre-content p:last-child {
+    margin-bottom: 0;
+}
+
+.sobre-content strong {
+    color: #0170c9;
+}
+
+/* ============================================ */
+/* 6. SERVIÇOS
+/* ============================================ */
+.services {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 20px;
+    max-width: 850px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.service-card {
+    background: #1a1a1a;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #333;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.service-card video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.1;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.service-card:hover video {
+    opacity: 0.9;
+}
+
+.service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    border-color: #0170c9;
+}
+
+.service-card h3 {
+    color: #0170c9;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 20px;
+    position: relative;
+    z-index: 2;
+    transition: transform 0.3s ease, background 0.3s ease, padding 0.3s ease;
+    display: inline-block;
+    align-self: flex-start;
+}
+
+.service-card:hover h3 {
+    transform: translateY(-25px);
+    background: rgba(0, 0, 0, 0.7);
+    padding: 0px 5px;
+    border-radius: 5px;
+    backdrop-filter: blur(4px);
+}
+
+.service-card p {
+    color: #eaeaea;
+    line-height: 1.5;
+    margin: 0;
+    position: relative;
+    z-index: 2;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    opacity: 1;
+    visibility: visible;
+}
+
+.service-card:hover p {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* ============================================ */
+/* 7. SHOWROOM - GALERIA COM SCROLL HORIZONTAL
+/* ============================================ */
 .showroom-container {
     width: 100%;
     overflow-x: auto;
@@ -135,7 +293,7 @@ h2{
 
 .showroom-item:hover {
     transform: translateY(-8px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
 .showroom-item img {
@@ -157,7 +315,7 @@ h2{
     right: 10px;
     width: 40px;
     height: 40px;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.7);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -171,7 +329,7 @@ h2{
 
 .expand-btn:hover {
     transform: scale(1.1);
-    background: rgba(0,0,0,0.9);
+    background: rgba(0, 0, 0, 0.9);
 }
 
 .expand-btn img {
@@ -185,7 +343,9 @@ h2{
     opacity: 1;
 }
 
-/* ==================== VÍDEOS COM SCROLL HORIZONTAL ==================== */
+/* ============================================ */
+/* 8. VÍDEOS - SCROLL HORIZONTAL
+/* ============================================ */
 .videos-container {
     width: 100%;
     overflow-x: auto;
@@ -223,7 +383,7 @@ h2{
 
 .video-item:hover {
     transform: translateY(-8px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
 }
 
 /* Thumbnail do vídeo */
@@ -247,7 +407,7 @@ h2{
     transform: translate(-50%, -50%);
     width: 56px;
     height: 56px;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.7);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -262,7 +422,7 @@ h2{
 
 .video-play-btn:hover {
     transform: translate(-50%, -50%) scale(1.1);
-    background: rgba(0,0,0,0.9);
+    background: rgba(0, 0, 0, 0.9);
 }
 
 .video-play-btn img {
@@ -315,6 +475,9 @@ h2{
     z-index: 5;
 }
 
+/* ============================================ */
+/* 9. SCROLL INDICATOR E MENSAGENS
+/* ============================================ */
 .scroll-indicator {
     text-align: center;
     margin-top: 5px;
@@ -377,18 +540,20 @@ h2{
     margin-top: 10px;
 }
 
-/* ==================== LIGHTBOX ==================== */
-.lightbox{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.95);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:999;
+/* ============================================ */
+/* 10. LIGHTBOX
+/* ============================================ */
+.lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
     cursor: pointer;
 }
 
@@ -438,87 +603,236 @@ h2{
     border-radius: 8px;
 }
 
-/* ==================== CONTATO COM ÍCONES ==================== */
+/* ============================================ */
+/* 11. CONTATO - SEÇÃO OTIMIZADA
+/* ============================================ */
+#contato {
+    position: relative;
+}
+
+#contato h2 {
+    margin-bottom: 30px;
+}
+
+/* Texto de chamada para ação */
+.cta-text {
+    text-align: center;
+    margin-bottom: 0px;
+    font-size: 18px;
+    font-weight: 500;
+    color: #0a85f8;
+    animation: subtlePulse 3s ease-in-out infinite;
+}
+
+@keyframes subtlePulse {
+    0%, 100% {
+        opacity: 0.7;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1.02);
+    }
+}
+
+/* Container principal de contato */
 .contato {
     text-align: center;
     max-width: 600px;
     margin: 0 auto;
+    position: relative;
 }
 
+/* Links de contato */
 .contato-links {
     display: flex;
     justify-content: center;
-    gap: 50px;
-    margin-bottom: 40px;
+    gap: 60px;
+    margin-bottom: 20px;
     flex-wrap: wrap;
 }
 
 .contato-item {
     text-align: center;
-    transition: transform 0.3s;
+    position: relative;
+    transition: transform 0.3s ease;
 }
 
-.contato-item:hover {
-    transform: translateY(-5px);
+/* Efeito de brilho ao redor dos ícones */
+.contato-item::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: -10px;
+    right: -10px;
+    bottom: -10px;
+    background: radial-gradient(circle, rgba(1, 112, 201, 0.2) 0%, rgba(1, 112, 201, 0) 70%);
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
 }
 
+.contato-item:hover::before {
+    opacity: 1;
+}
+
+/* Badges de resposta rápida para WhatsApp e Telegram */
+.contato-item:first-child,
+.contato-item:nth-child(2) {
+    position: relative;
+}
+
+.contato-item:first-child::after {
+    content: '⚡ Resposta rápida';
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #25D366;
+    color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(37, 211, 102, 0.3);
+    animation: bounceBadge 1s ease infinite;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.contato-item:nth-child(2)::after {
+    content: '⚡ Resposta rápida';
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #26A5E4;
+    color: #fff;
+    font-size: 11px;
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 20px;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(38, 165, 228, 0.3);
+    animation: bounceBadge 1s ease infinite;
+    pointer-events: none;
+    z-index: 10;
+}
+
+@keyframes bounceBadge {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-3px);
+    }
+}
+
+/* Estilo dos links */
 .contato-item a {
     display: block;
     text-decoration: none;
+    position: relative;
+    padding: 15px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    animation: gentlePulse 2s ease-in-out infinite;
+}
+
+@keyframes gentlePulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 0 rgba(1, 112, 201, 0));
+    }
+    50% {
+        filter: drop-shadow(0 0 8px rgba(1, 112, 201, 0.6));
+    }
+}
+
+.contato-item:hover {
+    transform: translateY(-8px) scale(1.05);
+}
+
+.contato-item:hover a {
+    filter: drop-shadow(0 8px 15px rgba(0, 0, 0, 0.3));
 }
 
 .contato-item img {
-    width: 40px;
-    height: 40px;
-    transition: all 0.3s;
-    filter: brightness(0.9);
+    width: 50px;
+    height: 50px;
+    transition: all 0.3s ease;
 }
 
 .contato-item:hover img {
-    filter: brightness(1.1);
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 .contato-item span {
     display: block;
-    margin-top: 8px;
+    margin-top: 12px;
     color: #eaeaea;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 15px;
+    font-weight: 600;
+    transition: color 0.3s ease;
 }
 
+.contato-item:hover span {
+    color: #0170c9;
+}
+
+/* Estilização do email */
 .email-container {
-    margin: 40px 0;
+    margin: 30px 0;
+    position: relative;
 }
 
 .email-container a {
     display: inline-block;
     text-decoration: none;
-    transition: transform 0.3s;
+    padding: 20px 50px;
+    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(1, 112, 201, 0.3);
 }
 
-.email-container a:hover {
+.email-container:hover a {
     transform: translateY(-5px);
+    background: rgba(1, 112, 201, 0.2);
+    border-color: #0170c9;
+    box-shadow: 0 5px 20px rgba(1, 112, 201, 0.2);
 }
 
 .email-container img {
-    width: 40px;
-    height: 40px;
-    transition: all 0.3s;
-    filter: brightness(0.9);
+    width: 45px;
+    height: 45px;
+    transition: transform 0.3s ease;
 }
 
 .email-container:hover img {
-    filter: brightness(1.1);
-    transform: scale(1.05);
+    transform: scale(1.1);
 }
 
 .email-container span {
     display: block;
-    margin-top: 8px;
+    margin-top: 10px;
     color: #eaeaea;
-    font-size: 14px;
-    font-weight: bold;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* ============================================ */
+/* 12. REDES SOCIAIS
+/* ============================================ */
+#redes-sociais {
+    padding-top: 0;
+}
+
+#redes-sociais .social {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
 }
 
 .social {
@@ -556,148 +870,69 @@ h2{
     transform: scale(1.05);
 }
 
-/* ==================== RODAPÉ ==================== */
-footer{
-    background:#000;
-    padding:30px;
-    text-align:center;
-    color:#777;
+/* ============================================ */
+/* 13. BOTÃO WHATSAPP FLUTUANTE
+/* ============================================ */
+.whatsapp {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    background: #202020;
+    padding: 0px;
+    border-radius: 50%;
+    text-decoration: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulseWhatsApp 1.5s ease-in-out infinite;
 }
 
-/* ==================== BOTÃO WHATSAPP FLUTUANTE ==================== */
-.whatsapp{
-    position:fixed;
-    right:20px;
-    bottom:20px;
-    background:#222222;
-    padding:0px;
-    border-radius:50%;
-    text-decoration:none;
-    box-shadow:0 0 10px rgba(0,0,0,0.4);
-    transition:all 0.3s;
-    z-index:100;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+/* Efeito pulsante */
+@keyframes pulseWhatsApp {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+    70% {
+        transform: scale(1.08);
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
 }
 
-.whatsapp:hover{
-    transform:scale(1.1);
-    box-shadow:0 0 15px rgba(37,211,102,0.5);
+.whatsapp:hover {
+    transform: scale(1.15);
+    box-shadow: 0 0 25px rgba(37, 211, 102, 0.8);
+    animation: none; /* Para a animação ao passar o mouse */
 }
 
 .whatsapp img {
     width: 64px;
     height: 64px;
     display: block;
+    filter: brightness(1) drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
 }
 
-/* ==================== RESPONSIVIDADE ==================== */
-@media (max-width: 768px) {
-    .showroom-item,
-    .video-item {
-        width: 220px;
-    }
-    
-    .video-play-btn {
-        width: 48px;
-        height: 48px;
-    }
-    
-    .video-play-btn img {
-        width: 24px;
-        height: 24px;
-    }
-    
-    .contato-links {
-        gap: 30px;
-    }
-    
-    .contato-item img,
-    .email-container img {
-        width: 50px;
-        height: 50px;
-    }
-    
-    .social-links {
-        gap: 25px;
-    }
-    
-    .social-links img {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .expand-btn {
-        width: 28px;
-        height: 28px;
-    }
-    
-    .expand-btn img {
-        width: 16px;
-        height: 16px;
-    }
-    nav {
-        padding: 4px 15px;
-        gap: 5px;
-    }
-    
-    nav a {
-        padding: 4px 10px;
-        font-size: 11px;
-        min-width: 55px;
-    }
+/* ============================================ */
+/* 14. RODAPÉ
+/* ============================================ */
+footer {
+    background: #000;
+    padding: 30px;
+    text-align: center;
+    color: #777;
 }
 
-
-
-@media (max-width: 480px) {
-    .showroom-item,
-    .video-item {
-        width: 180px;
-    }
-    
-    .video-play-btn {
-        width: 40px;
-        height: 40px;
-    }
-    
-    .video-play-btn img {
-        width: 20px;
-        height: 20px;
-    }
-    
-    .contato-links {
-        gap: 20px;
-    }
-    
-    .contato-item img,
-    .email-container img {
-        width: 45px;
-        height: 45px;
-    }
-    
-    .social-links {
-        gap: 20px;
-    }
-    
-    .social-links img {
-        width: 35px;
-        height: 35px;
-    }
-    
-    .expand-btn {
-        width: 24px;
-        height: 24px;
-    }
-    
-    .expand-btn img {
-        width: 14px;
-        height: 14px;
-    }
-}
-
-/* Para Chromium (Chrome, Edge, Brave) */
+/* ============================================ */
+/* 15. SCROLLBAR PERSONALIZADA
+/* ============================================ */
+/* Chromium (Chrome, Edge, Brave) */
 .showroom-container::-webkit-scrollbar,
 .videos-container::-webkit-scrollbar {
     height: 10px;
@@ -720,7 +955,7 @@ footer{
     background: #0170c9;
 }
 
-/* Para Firefox */
+/* Firefox */
 .showroom-container,
 .videos-container {
     scrollbar-width: thin;
@@ -732,191 +967,171 @@ footer{
     scrollbar-color: #0170c9 #1a1a1a;
 }
 
-#redes-sociais {
-    padding-top: 0;
-}
+/* ============================================ */
+/* 16. RESPONSIVIDADE
+/* ============================================ */
+@media (max-width: 768px) {
+    /* Header */
+    .brand h1 {
+        font-size: 36px;
+    }
+    .brand img {
+        height: 50px;
+    }
+    
+    /* Navegação */
+    nav {
+        padding: 4px 15px;
+        gap: 5px;
+    }
+    nav a {
+        padding: 4px 10px;
+        font-size: 11px;
+        min-width: 55px;
+    }
+    
+    /* Showroom e Vídeos */
+    .showroom-item,
+    .video-item {
+        width: 220px;
+    }
+    .video-play-btn {
+        width: 48px;
+        height: 48px;
+    }
+    .video-play-btn img {
+        width: 24px;
+        height: 24px;
+    }
+    .expand-btn {
+        width: 28px;
+        height: 28px;
+    }
+    .expand-btn img {
+        width: 16px;
+        height: 16px;
+    }
+    
+    /* Contato */
+    .contato-links {
+        gap: 40px;
+    }
+    .contato-item:first-child::after,
+    .contato-item:nth-child(2)::after {
+        font-size: 9px;
+        padding: 3px 8px;
+        top: -20px;
+        white-space: nowrap;
+    }
+    .cta-text {
+        font-size: 16px;
+    }
+    .contato-item img {
+        width: 45px;
+        height: 45px;
+    }
+    .email-container a {
+        padding: 10px 25px;
+    }
+    
+    /* Redes Sociais */
+    .social-links {
+        gap: 25px;
+    }
+    .social-links img {
+        width: 40px;
+        height: 40px;
+    }
+    
+    /* Sobre */
+    .sobre-card {
+        padding: 30px 20px;
+    }
+    .sobre-card h2 {
+        font-size: 28px;
+    }
+    .sobre-content p {
+        font-size: 14px;
+        line-height: 1.6;
+    }
 
-#redes-sociais .social {
-    margin-top: 0;
-    padding-top: 0;
-    border-top: none;
-}
+    /* Ajuste do botão WhatsApp flutuante em mobile */
+    .whatsapp {
+        right: 15px;
+        bottom: 15px;
+    }
 
-
-/* ==================== SERVIÇOS ==================== */
-.services {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
-    margin-top: 20px;
-    max-width: 850px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.service-card {
-    background: #1a1a1a;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.2);
-    transition: transform 0.3s, box-shadow 0.3s;
-    border: 1px solid #333;
-    position: relative;
-    overflow: hidden;
-    z-index: 1;
-    min-height: 200px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.service-card video {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0.1;
-    transition: opacity 0.3s ease;
-    z-index: -1;
-    pointer-events: none;
-}
-
-.service-card:hover video {
-    opacity: 0.9;
-}
-
-.service-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-    border-color: #0170c9;
-}
-
-.service-card h3 {
-    color: #0170c9;
-    margin-top: 0;
-    margin-bottom: 15px;
-    font-size: 20px;
-    position: relative;
-    z-index: 2;
-    transition: transform 0.3s ease, background 0.3s ease, padding 0.3s ease;
-    display: inline-block;
-    align-self: flex-start;
-}
-
-.service-card:hover h3 {
-    transform: translateY(-25px);
-    background: rgba(0, 0, 0, 0.7);
-    padding: 0px 5px;
-    border-radius: 5px;
-    backdrop-filter: blur(4px);
-}
-
-.service-card p {
-    color: #eaeaea;
-    line-height: 1.5;
-    margin: 0;
-    position: relative;
-    z-index: 2;
-    transition: opacity 0.3s ease, visibility 0.3s ease;
-    opacity: 1;
-    visibility: visible;
-}
-
-.service-card:hover p {
-    opacity: 0;
-    visibility: hidden;
+    .whatsapp img {
+        width: 54px;
+        height: 54px;
+    }
 }
 
 @media (max-width: 600px) {
+    /* Serviços */
     .services {
         grid-template-columns: 1fr;
     }
 }
 
-
-/* ==================== SOBRE - CARD DESTAQUE ==================== */
-#sobre {
-    max-width: 900px;
-    margin: 40px auto;
-    padding: 0 20px;
-}
-
-.sobre-card {
-    background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
-    border-radius: 20px;
-    padding: 50px 40px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-    border: 1px solid rgba(1, 112, 201, 0.3);
-    transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.sobre-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-    border-color: #0170c9;
-}
-
-.sobre-card h2 {
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 32px;
-    position: relative;
-    display: inline-block;
-    width: 100%;
-}
-
-.sobre-card h2::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: #0170c9;
-    border-radius: 2px;
-}
-
-.sobre-content {
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.sobre-content p {
-    text-align: center;
-    line-height: 1.8;
-    font-size: 16px;
-    color: #eaeaea;
-    margin-bottom: 20px;
-}
-
-.sobre-content p:last-child {
-    margin-bottom: 0;
-}
-
-.sobre-content strong {
-    color: #0170c9;
-}
-
-@media (max-width: 768px) {
-    .sobre-card {
-        padding: 30px 20px;
+@media (max-width: 480px) {
+    /* Showroom e Vídeos */
+    .showroom-item,
+    .video-item {
+        width: 180px;
+    }
+    .video-play-btn {
+        width: 40px;
+        height: 40px;
+    }
+    .video-play-btn img {
+        width: 20px;
+        height: 20px;
+    }
+    .expand-btn {
+        width: 24px;
+        height: 24px;
+    }
+    .expand-btn img {
+        width: 14px;
+        height: 14px;
     }
     
-    .sobre-card h2 {
-        font-size: 28px;
+    /* Contato */
+    .contato-links {
+        gap: 30px;
     }
-    
-    .sobre-content p {
+    .contato-item:first-child::after,
+    .contato-item:nth-child(2)::after {
+        font-size: 8px;
+        padding: 2px 6px;
+        top: -18px;
+    }
+    .cta-text {
         font-size: 14px;
-        line-height: 1.6;
+    }
+    .contato-item img {
+        width: 45px;
+        height: 45px;
+    }
+    
+    /* Redes Sociais */
+    .social-links {
+        gap: 20px;
+    }
+    .social-links img {
+        width: 35px;
+        height: 35px;
+    }
+    .whatsapp img {
+        width: 48px;
+        height: 48px;
     }
 }
 
-
-/* ==================== FIM STYLE ==================== */
+/* ============================================ */
+/* FIM DOS ESTILOS
+/* ============================================ */
 </style>
 </head>
 <body>
@@ -942,7 +1157,7 @@ footer{
     <h2>Sobre a Polidram</h2>
     <div class="sobre-content">
         <p>
-            A <strong>Polidram</strong> é especializada em <strong>usinagem CNC de precisão</strong>, oferecendo soluções para peças técnicas, protótipos e pequenas séries. Nosso trabalho combina experiência prática com o uso de <strong>máquinas CNC de fabricação própria</strong>, permitindo maior controle do processo e alta qualidade nos resultados.
+            A <strong>Polidram</strong> é especializada em <strong>usinagem CNC de precisão</strong>, oferecendo fabricação de peças de variados níveis de complexidade e quantidades. Nosso trabalho combina experiência prática com o uso de <strong>máquinas CNC de fabricação própria</strong>, permitindo maior controle do processo e alta qualidade nos resultados.
         </p>
         <p>
             Desenvolvemos soluções sob medida para cada cliente, priorizando <strong>precisão dimensional</strong>, <strong>confiabilidade</strong> e <strong>eficiência na produção</strong>.
@@ -1012,13 +1227,13 @@ footer{
     <span>←</span> Arraste para o lado <span>→</span>
 </div>
 <p style="text-align:center;margin-top:10px;font-size:14px;color:#888;">
-    Passe o mouse sobre os vídeos e clique no play para assistir
+    Clique no play para assistir
 </p>
 </section>
 
 <!-- ==================== SEÇÃO CONTATO ==================== -->
 <section id="contato">
-<h2>Contatos para Orçamentos</h2>
+    <h2>Contatos para Orçamentos</h2>
 <div class="contato">
     <div class="contato-links">
         <div class="contato-item">
@@ -1035,7 +1250,13 @@ footer{
         </div>
     </div>
     
+    <div class="cta-text">
+    💬 Fale com um especialista agora mesmo!
+    </div>
     <div class="email-container">
+        <p style="text-align:center;margin-top:10px;font-size:14px;color:#888;">
+            
+        </p>
         <a href="mailto:orcamentos@polidram.com.br" title="Enviar email">
             <img src="img/icons/email.png" alt="Email">
             <span>orcamentos@polidram.com.br</span>
