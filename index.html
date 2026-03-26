@@ -262,12 +262,11 @@ h2 {
     width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
-    cursor: grab;
-    user-select: none;
-    scroll-behavior: smooth;
+    scroll-behavior: auto; /* Remove o snap automático */
     -webkit-overflow-scrolling: touch;
     position: relative;
     padding: 20px 0;
+    cursor: grab;
 }
 
 .showroom-container:active {
@@ -276,7 +275,7 @@ h2 {
 
 .showroom-track {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     padding: 0 20px;
     width: max-content;
 }
@@ -350,12 +349,11 @@ h2 {
     width: 100%;
     overflow-x: auto;
     overflow-y: hidden;
-    cursor: grab;
-    user-select: none;
-    scroll-behavior: smooth;
+    scroll-behavior: auto;
     -webkit-overflow-scrolling: touch;
     position: relative;
     padding: 20px 0;
+    cursor: grab;
 }
 
 .videos-container:active {
@@ -364,7 +362,7 @@ h2 {
 
 .videos-track {
     display: flex;
-    gap: 20px;
+    gap: 30px;
     padding: 0 20px;
     width: max-content;
 }
@@ -377,7 +375,7 @@ h2 {
     border-radius: 12px;
     background: #000;
     position: relative;
-    cursor: pointer;
+    cursor: grab;
     transition: transform 0.3s, box-shadow 0.3s;
 }
 
@@ -1130,6 +1128,22 @@ footer {
 }
 
 /* ============================================ */
+/* 17. CURSOR PARA ARRASTE COM MOUSE
+/* ============================================ */
+/* Apenas para dispositivos que suportam hover (desktop) */
+@media (hover: hover) and (pointer: fine) {
+    .showroom-container,
+    .videos-container {
+        cursor: grab;
+    }
+    
+    .showroom-container:active,
+    .videos-container:active {
+        cursor: grabbing;
+    }
+}
+
+/* ============================================ */
 /* FIM DOS ESTILOS
 /* ============================================ */
 </style>
@@ -1189,7 +1203,7 @@ footer {
             <source src="img/servicos/retrofit_site.mp4" type="video/mp4">
         </video>
         <h3>Retrofit CNC</h3>
-        <p>Modernização e revitalização completa de máquinas CNC, aumentando eficiência, precisão e vida útil dos equipamentos.</p>
+        <p>Modernização e revitalização completa de máquinas convencionais para CNC, aumentando eficiência, precisão e vida útil dos equipamentos.</p>
     </div>
     <div class="service-card">
         <video autoplay muted loop playsinline>
@@ -1495,6 +1509,98 @@ function loadVideos() {
     
     track.innerHTML = '';
     
+    // Variável para controlar o vídeo atualmente em reprodução
+    let currentPlayingVideo = null;
+    
+    // Função para parar todos os vídeos
+    function stopAllVideos() {
+        if (currentPlayingVideo) {
+            // Restaurar o estado original do vídeo
+            currentPlayingVideo.innerHTML = '';
+            
+            // Recriar a estrutura original
+            const videoId = currentPlayingVideo.dataset.id;
+            const index = Array.from(track.children).indexOf(currentPlayingVideo);
+            
+            // Criar novamente o vídeo no estado inicial
+            const newVideoDiv = document.createElement('div');
+            newVideoDiv.className = 'video-item';
+            newVideoDiv.dataset.id = videoId;
+            newVideoDiv.dataset.playing = 'false';
+            
+            // Criar thumbnail
+            const thumb = document.createElement('img');
+            thumb.className = 'video-thumb';
+            thumb.src = `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`;
+            thumb.alt = `Vídeo ${index + 1}`;
+            
+            // Criar botão de play
+            const playBtn = document.createElement('div');
+            playBtn.className = 'video-play-btn';
+            const playIcon = document.createElement('img');
+            playIcon.src = 'img/icons/play.png';
+            playIcon.alt = 'Play';
+            
+            // Fallback se a imagem não existir
+            playIcon.onerror = function() {
+                playIcon.style.display = 'none';
+                playBtn.textContent = '▶';
+                playBtn.style.color = 'white';
+                playBtn.style.fontSize = '32px';
+                playBtn.style.fontWeight = 'bold';
+                playBtn.style.marginLeft = '4px';
+                playBtn.style.backgroundColor = '#0170c9';
+                playBtn.style.width = '56px';
+                playBtn.style.height = '56px';
+                playBtn.style.borderRadius = '50%';
+                playBtn.style.display = 'flex';
+                playBtn.style.alignItems = 'center';
+                playBtn.style.justifyContent = 'center';
+            };
+            playBtn.appendChild(playIcon);
+            
+            newVideoDiv.appendChild(thumb);
+            newVideoDiv.appendChild(playBtn);
+            
+            // Função para iniciar reprodução neste novo vídeo
+            function startPlayback() {
+                if (newVideoDiv.dataset.playing === 'true') return;
+                
+                // Parar qualquer vídeo em reprodução antes de iniciar este
+                if (currentPlayingVideo) {
+                    stopAllVideos();
+                }
+                
+                // Adicionar iframe
+                newVideoDiv.innerHTML = createYouTubeIframe(videoId, true);
+                newVideoDiv.classList.add('playing');
+                newVideoDiv.dataset.playing = 'true';
+                currentPlayingVideo = newVideoDiv;
+                
+                // Se o iframe falhar, mostrar erro
+                const iframe = newVideoDiv.querySelector('iframe');
+                if (iframe) {
+                    iframe.addEventListener('error', () => {
+                        newVideoDiv.innerHTML = createErrorMessage(videoId);
+                        newVideoDiv.classList.remove('playing');
+                        newVideoDiv.dataset.playing = 'false';
+                        currentPlayingVideo = null;
+                    });
+                }
+            }
+            
+            // Clique no botão de play inicia o vídeo
+            playBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                startPlayback();
+            });
+            
+            // Substituir o vídeo antigo pelo novo
+            currentPlayingVideo.parentNode.replaceChild(newVideoDiv, currentPlayingVideo);
+            currentPlayingVideo = null;
+        }
+    }
+    
     videosData.forEach((videoId, index) => {
         const videoDiv = document.createElement('div');
         videoDiv.className = 'video-item';
@@ -1513,6 +1619,7 @@ function loadVideos() {
         const playIcon = document.createElement('img');
         playIcon.src = 'img/icons/play.png';
         playIcon.alt = 'Play';
+        
         // Fallback se a imagem não existir
         playIcon.onerror = function() {
             playIcon.style.display = 'none';
@@ -1538,10 +1645,16 @@ function loadVideos() {
         function startPlayback() {
             if (videoDiv.dataset.playing === 'true') return;
             
+            // Parar qualquer vídeo em reprodução antes de iniciar este
+            if (currentPlayingVideo) {
+                stopAllVideos();
+            }
+            
             // Adicionar iframe
             videoDiv.innerHTML = createYouTubeIframe(videoId, true);
             videoDiv.classList.add('playing');
             videoDiv.dataset.playing = 'true';
+            currentPlayingVideo = videoDiv;
             
             // Se o iframe falhar, mostrar erro
             const iframe = videoDiv.querySelector('iframe');
@@ -1550,6 +1663,7 @@ function loadVideos() {
                     videoDiv.innerHTML = createErrorMessage(videoId);
                     videoDiv.classList.remove('playing');
                     videoDiv.dataset.playing = 'false';
+                    currentPlayingVideo = null;
                 });
             }
         }
@@ -1563,83 +1677,89 @@ function loadVideos() {
         track.appendChild(videoDiv);
     });
 }
-// ==================== SCROLL HORIZONTAL COM TOQUE/MOUSE ====================
+
+// ==================== SCROLL HORIZONTAL - APENAS PARA MOUSE ====================
 function initHorizontalScroll() {
     // Para imagens
     const containerImages = document.getElementById('showroomContainer');
     if (containerImages) {
-        setupHorizontalScroll(containerImages);
+        setupMouseDrag(containerImages);
     }
     
     // Para vídeos
     const containerVideos = document.getElementById('videosContainer');
     if (containerVideos) {
-        setupHorizontalScroll(containerVideos);
+        setupMouseDrag(containerVideos);
     }
 }
 
-function setupHorizontalScroll(container) {
-    let isDown = false;
-    let startX;
-    let scrollLeft;
+function setupMouseDrag(container) {
+    let startX = 0;
+    let startScrollLeft = 0;
+    let isDragging = false;
+    let hasMoved = false;
     
+    // Detectar se é dispositivo touch
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    
+    // Se for dispositivo touch, não faz nada (deixa o scroll nativo)
+    if (isTouchDevice) {
+        return;
+    }
+    
+    // Início do arrasto (apenas mouse)
     container.addEventListener('mousedown', (e) => {
-        // Não iniciar arrasto se clicou em botão de play ou expandir
+        // Verificar se clicou em botões interativos
         const target = e.target;
         if (target.closest('.video-play-btn') || target.closest('.expand-btn')) {
             return;
         }
-        isDown = true;
+        
+        isDragging = true;
+        hasMoved = false;
+        startX = e.pageX;
+        startScrollLeft = container.scrollLeft;
         container.style.cursor = 'grabbing';
-        startX = e.pageX - container.offsetLeft;
-        scrollLeft = container.scrollLeft;
         e.preventDefault();
     });
     
-    container.addEventListener('mouseleave', () => {
-        isDown = false;
-        container.style.cursor = 'grab';
-    });
-    
-    container.addEventListener('mouseup', () => {
-        isDown = false;
-        container.style.cursor = 'grab';
-    });
-    
+    // Movimento do arrasto
     container.addEventListener('mousemove', (e) => {
-        if (!isDown) return;
+        if (!isDragging) return;
+        
+        const dx = e.pageX - startX;
+        if (Math.abs(dx) > 5) {
+            hasMoved = true;
+        }
+        
+        container.scrollLeft = startScrollLeft - dx;
         e.preventDefault();
-        const x = e.pageX - container.offsetLeft;
-        const walk = (x - startX);
-        container.scrollLeft = scrollLeft - walk;
     });
     
-    // Suporte para toque (mobile)
-    let touchStartX = 0;
-    let touchScrollLeft = 0;
-    let touchStartTime = 0;
-    
-    container.addEventListener('touchstart', (e) => {
-        // Verificar se o toque foi em um botão de play
-        const target = e.target;
-        if (target.closest('.video-play-btn') || target.closest('.expand-btn')) {
-            return;
+    // Fim do arrasto
+    container.addEventListener('mouseup', () => {
+        if (!isDragging) return;
+        
+        isDragging = false;
+        container.style.cursor = 'grab';
+        
+        // Se houve movimento significativo, impedir clique em itens
+        if (hasMoved) {
+            setTimeout(() => {
+                hasMoved = false;
+            }, 100);
         }
-        touchStartX = e.touches[0].pageX - container.offsetLeft;
-        touchScrollLeft = container.scrollLeft;
-        touchStartTime = Date.now();
-    }, { passive: true });
+    });
     
-    container.addEventListener('touchmove', (e) => {
-        const target = e.target;
-        if (target.closest('.video-play-btn') || target.closest('.expand-btn')) {
-            return;
+    // Prevenir clique em itens após arrasto
+    container.addEventListener('click', (e) => {
+        if (hasMoved) {
+            e.stopPropagation();
+            e.preventDefault();
         }
-        const x = e.touches[0].pageX - container.offsetLeft;
-        const walk = (x - touchStartX);
-        container.scrollLeft = touchScrollLeft - walk;
-    }, { passive: false });
+    }, true);
 }
+
 
 // ==================== LIGHTBOX CONTROLES ====================
 function initLightbox() {
@@ -1693,10 +1813,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initHorizontalScroll();
 });
 
-console.log('Site Polidram carregado!');
-console.log('✅ Scroll horizontal corrigido e funcionando');
-console.log('✅ Vídeos agora reproduzem apenas ao clicar no botão play');
-console.log('✅ Expansão de imagens via botão de expandir');
+// console.log('Site Polidram carregado!');
+// console.log('✅ Scroll horizontal corrigido e funcionando');
+// console.log('✅ Vídeos agora reproduzem apenas ao clicar no botão play');
+// console.log('✅ Expansão de imagens via botão de expandir');
 </script>
 </body>
 </html>
